@@ -16,28 +16,36 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `contacorrente`
+-- Table structure for table `conta`
 --
 
-DROP TABLE IF EXISTS `contacorrente`;
+DROP TABLE IF EXISTS `conta`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `contacorrente` (
-  `Id` varchar(50) NOT NULL,
-  `Descricao` varchar(100) DEFAULT NULL,
+CREATE TABLE `conta` (
+  `Id` varchar(50) DEFAULT NULL,
   `UsuarioId` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`Id`)
+  `ContaCorrenteId` varchar(50) DEFAULT NULL,
+  `Tipo` int DEFAULT NULL,
+  `CategoriaId` varchar(50) DEFAULT NULL,
+  `ContatoId` varchar(50) DEFAULT NULL,
+  `Descricao` varchar(100) DEFAULT NULL,
+  `DataVencimento` datetime DEFAULT NULL,
+  `Valor` decimal(18,2) DEFAULT NULL,
+  `DataPagamento` datetime DEFAULT NULL,
+  `Desconto` decimal(18,2) DEFAULT NULL,
+  `Acrescimo` decimal(18,2) DEFAULT NULL,
+  `ValorPago` decimal(18,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `contacorrente`
+-- Dumping data for table `conta`
 --
 
-LOCK TABLES `contacorrente` WRITE;
-/*!40000 ALTER TABLE `contacorrente` DISABLE KEYS */;
-INSERT INTO `contacorrente` VALUES ('IdTeste','Descriçao Teste','UsuarioIdTeste');
-/*!40000 ALTER TABLE `contacorrente` ENABLE KEYS */;
+LOCK TABLES `conta` WRITE;
+/*!40000 ALTER TABLE `conta` DISABLE KEYS */;
+/*!40000 ALTER TABLE `conta` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

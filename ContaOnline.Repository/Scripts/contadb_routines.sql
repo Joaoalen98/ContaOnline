@@ -22,6 +22,51 @@
 --
 -- Dumping routines for database 'contadb'
 --
+/*!50003 DROP PROCEDURE IF EXISTS `ContaAlterar` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ContaAlterar`(
+	Id varchar(50),
+    ContaCorrenteId varchar(50),
+    Tipo int,
+    CategoriaId varchar(50),
+    ContatoId varchar(50),
+    Descricao varchar(100),
+    DataVencimento datetime,
+    Valor decimal(18, 2),
+    DataPagamento datetime,
+    Desconto decimal(18, 2),
+    Acrescimo decimal(18, 2),
+    ValorPago decimal(18, 2)
+)
+BEGIN
+	update conta c set
+    c.Id = Id,
+    c.ContaCorrenteId = ContaCorrenteId,
+    c.Tipo = Tipo,
+    c.CategoriaId = CategoriaId,
+    c.ContatoId = ContatoId,
+    c.Descricao = Descricao,
+    c.DataVencimento = DataVencimento,
+    c.Valor = Valor,
+    c.DataPagamento = DataPagamento,
+    c.Desconto = Desconto,
+    c. Acrescimo = Acrescimo,
+    c.ValorPago = ValorPago
+    where c.Id = Id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `ContaCategoriaAlterar` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -247,6 +292,223 @@ BEGIN
         c.Descricao, 
         c.UsuarioId
     from contacorrente c
+    where c.UsuarioId = UsuarioId;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ContaCriar` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ContaCriar`(
+	Id varchar(50),
+    UsuarioId varchar(50),
+    ContaCorrenteId varchar(50),
+    Tipo int,
+    CategoriaId varchar(50),
+    ContatoId varchar(50),
+    Descricao varchar(100),
+    DataVencimento datetime,
+    Valor decimal(18, 2),
+    DataPagamento datetime,
+    Desconto decimal(18, 2),
+    Acrescimo decimal(18, 2),
+    ValorPago decimal(18, 2)
+)
+BEGIN
+	insert into conta (
+		Id,
+		UsuarioId,
+		ContaCorrenteId,
+		Tipo,
+		CategoriaId,
+		ContatoId,
+		Descricao,
+		DataVencimento,
+		Valor,
+		DataPagamento,
+		Desconto,
+		Acrescimo,
+		ValorPago
+    ) 
+    values (
+		Id,
+		UsuarioId,
+		ContaCorrenteId,
+		Tipo,
+		CategoriaId,
+		ContatoId,
+		Descricao,
+		DataVencimento,
+		Valor,
+		DataPagamento,
+		Desconto,
+		Acrescimo,
+		ValorPago
+    );
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ContaExcluir` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ContaExcluir`(
+	Id varchar(50)
+)
+BEGIN
+	delete from conta where conta.Id = Id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ContaIncluir` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ContaIncluir`(
+	Id varchar(50),
+    UsuarioId varchar(50),
+    ContaCorrenteId varchar(50),
+    Tipo int,
+    CategoriaId varchar(50),
+    ContatoId varchar(50),
+    Descricao varchar(100),
+    DataVencimento datetime,
+    Valor decimal(18, 2),
+    DataPagamento datetime,
+    Desconto decimal(18, 2),
+    Acrescimo decimal(18, 2),
+    ValorPago decimal(18, 2)
+)
+BEGIN
+	insert into conta (
+		Id,
+		UsuarioId,
+		ContaCorrenteId,
+		Tipo,
+		CategoriaId,
+		ContatoId,
+		Descricao,
+		DataVencimento,
+		Valor,
+		DataPagamento,
+		Desconto,
+		Acrescimo,
+		ValorPago
+    ) 
+    values (
+		Id,
+		UsuarioId,
+		ContaCorrenteId,
+		Tipo,
+		CategoriaId,
+		ContatoId,
+		Descricao,
+		DataVencimento,
+		Valor,
+		DataPagamento,
+		Desconto,
+		Acrescimo,
+		ValorPago
+    );
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ContaObterPorId` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ContaObterPorId`(
+	Id varchar(50)
+)
+BEGIN
+	select 
+		Id,
+		UsuarioId,
+		ContaCorrenteId,
+		Tipo,
+		CategoriaId,
+		ContatoId,
+		Descricao,
+		DataVencimento,
+		Valor,
+		DataPagamento,
+		Desconto,
+		Acrescimo,
+		ValorPago
+	from conta c
+    where c.Id = Id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ContaObterTodas` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ContaObterTodas`(
+	UsuarioId varchar(50)
+)
+BEGIN
+	select 
+		Id,
+		UsuarioId,
+		ContaCorrenteId,
+		Tipo,
+		CategoriaId,
+		ContatoId,
+		Descricao,
+		DataVencimento,
+		Valor,
+		DataPagamento,
+		Desconto,
+		Acrescimo,
+		ValorPago
+	from conta c
     where c.UsuarioId = UsuarioId;
 END ;;
 DELIMITER ;
@@ -565,4 +827,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-14 22:50:46
+-- Dump completed on 2023-03-14 23:27:42
