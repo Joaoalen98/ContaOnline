@@ -1,6 +1,6 @@
 # Conta Online
 
-Este projeto tem como objetivo o desenvolvimento de uma aplicação para controle de gastos, utilizando a arquitetura DDD.
+Este projeto tem como objetivo o desenvolvimento de uma aplicação para controle de gastos, utilizando ASP.NET e MySQL, utilizando DDD como padrão de projeto.
 
 ## Projetos
 - Domain: camada de domínio da aplicação, responsável por armazenar a regra de negócio; <br>
