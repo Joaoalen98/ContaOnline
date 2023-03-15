@@ -8,27 +8,27 @@ namespace ContaOnline.Repository
     {
         public void Alterar(Contato entidade)
         {
-            throw new System.NotImplementedException();
+            Db.Executar("ContatoAlterar", entidade);
         }
 
         public void Excluir(string id)
         {
-            throw new System.NotImplementedException();
+            Db.Executar("ContatoExcluir", new { Id = id });
         }
 
         public void Incluir(Contato entidade)
         {
-            throw new System.NotImplementedException();
+            Db.Executar("ContatoIncluir", entidade);
         }
 
         public Contato ObterPorId(string id)
         {
-            throw new System.NotImplementedException();
+            return Db.QueryEntidade<Contato>("ContatoObterPorId", new { Id = id });
         }
 
         public IEnumerable<Contato> ObterTodos(string usuarioId)
         {
-            throw new System.NotImplementedException();
+            return Db.QueryColecao<Contato>("ContatoObterTodos", new { UsuarioId = usuarioId });
         }
 
         public IEnumerable<string> Validar()

@@ -15,7 +15,7 @@ namespace ContaOnline.Repository
             return cn;
         }
 
-        public static int Executar(string query, object param, CommandType commandType)
+        public static int Executar(string query, object param, CommandType commandType = CommandType.StoredProcedure)
         {
             int total;
             using (var cn = ObterConexao())
@@ -25,7 +25,7 @@ namespace ContaOnline.Repository
             return total;
         }
 
-        public static T QueryEntidade<T>(string query, object param, CommandType commandType)
+        public static T QueryEntidade<T>(string query, object param, CommandType commandType = CommandType.StoredProcedure)
         {
             T retorno;
 
@@ -36,7 +36,7 @@ namespace ContaOnline.Repository
             return retorno;
         }
 
-        public static IEnumerable<T> QueryColecao<T>(string query, object param, CommandType commandType)
+        public static IEnumerable<T> QueryColecao<T>(string query, object param, CommandType commandType = CommandType.StoredProcedure)
         {
             IEnumerable<T> retorno;
             using (var cn = ObterConexao())
