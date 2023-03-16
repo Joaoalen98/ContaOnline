@@ -1,5 +1,6 @@
 ﻿using ContaOnline.Domain.Interfaces;
 using ContaOnline.Domain.Models;
+using System;
 using System.Collections.Generic;
 
 namespace ContaOnline.Repository
@@ -8,32 +9,32 @@ namespace ContaOnline.Repository
     {
         public void Alterar(Conta entidade)
         {
-            throw new System.NotImplementedException();
+            Db.Executar("ContaAlterar", entidade);
         }
 
         public void Excluir(string id)
         {
-            throw new System.NotImplementedException();
+            Db.Executar("ContaExcluir", new { Id = id });
         }
 
         public void Incluir(Conta entidade)
         {
-            throw new System.NotImplementedException();
+            Db.Executar("ContaIncluir", entidade);
         }
 
         public IEnumerable<Conta> ObterPorFiltro(ContaFiltro filtro)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public Conta ObterPorId(string id)
         {
-            throw new System.NotImplementedException();
+            return Db.QueryEntidade<Conta>("ContaObterPorId", new { Id = id });
         }
 
         public IEnumerable<Conta> ObterTodos(string usuarioId)
         {
-            throw new System.NotImplementedException();
+            return Db.QueryColecao<Conta>("ContaObterTodas", new { UsuarioId = usuarioId });
         }
 
         public IEnumerable<string> Validar()
