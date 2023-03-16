@@ -1,4 +1,5 @@
 ﻿using ContaOnline.Domain.Enums;
+using System;
 
 namespace ContaOnline.Domain.Models
 {
@@ -8,7 +9,7 @@ namespace ContaOnline.Domain.Models
         public string Nome { get; set; }
         public string Telefone { get; set; }
         public string Email { get; set; }
-        public TipoPessoa TipoPessoa { get; set; }
+        public TipoPessoa Tipo { get; set; }
         public string UsuarioId { get; set; }
     }
 }

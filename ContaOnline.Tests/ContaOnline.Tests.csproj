@@ -51,6 +51,8 @@
   <ItemGroup>
     <Compile Include="ContaCategoriaTest.cs" />
     <Compile Include="ContaCorrenteTest.cs" />
+    <Compile Include="ContaTest.cs" />
+    <Compile Include="ContatoTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsuarioTest.cs" />
   </ItemGroup>
