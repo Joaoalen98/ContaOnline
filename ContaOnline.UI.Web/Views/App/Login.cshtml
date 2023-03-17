@@ -1,0 +1,20 @@
+﻿@model ContaOnline.UI.Web.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+<form method="post">
+    <div id="mensagem">@Model.Mensagem</div>
+
+    <label for="Email">Email:</label>
+    <input type="text" name="Email" id="Email" />
+
+    <label for="Senha">Senha:</label>
+    <input type="password" name="Senha" id="Senha" />
+
+    <input type="submit" value="Enviar" />
+</form>
+
