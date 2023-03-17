@@ -1,5 +1,4 @@
 ﻿using ContaOnline.Domain.Interfaces;
-using ContaOnline.Repository;
 using ContaOnline.UI.Web.Models;
 using System.Web.Mvc;
 
@@ -8,6 +7,11 @@ namespace ContaOnline.UI.Web.Controllers
 
     public class AppController : Controller
     {
+        public ActionResult Registro()
+        {
+            var registro = new RegistroViewModel();
+            return View(registro);
+        }
 
         public ActionResult Login()
         {
@@ -41,17 +45,6 @@ namespace ContaOnline.UI.Web.Controllers
         {
             return View();
         }
-
-
-        /// <summary>
-        /// Registro de usuário
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult Registro()
-        {
-            return View();
-        }
-
 
         /// <summary>
         /// Sobre o App
