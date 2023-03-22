@@ -50,5 +50,35 @@ namespace ContaOnline.UI.Web.Controllers
 
             return View(model);
         }
+
+        public ActionResult Alterar(string id)
+        {
+            var contaCorrente = _contaCorrenteRepository.ObterPorId(id);
+            return View(contaCorrente);
+        }
+
+        [HttpPost]
+        public ActionResult Alterar(ContaCorrente model)
+        {
+            if (ModelState.IsValid)
+            {
+                _contaCorrenteRepository.Alterar(model);
+                return RedirectToAction("Inicio");
+            }
+            return RedirectToAction("Inicio");
+        }
+
+        public ActionResult Excluir(string id)
+        {
+            var contaCorrente = _contaCorrenteRepository.ObterPorId(id);
+            return View(contaCorrente);
+        }
+
+        [HttpPost]
+        public ActionResult Excluir(FormCollection form, string id)
+        {
+            _contaCorrenteRepository.Excluir(id);
+            return RedirectToAction("Inicio");
+        }
     }
 }
