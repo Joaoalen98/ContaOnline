@@ -1,16 +1,60 @@
-﻿using ContaOnline.Domain.Interfaces;
+﻿using System;
+using ContaOnline.Domain.Interfaces;
 using ContaOnline.UI.Web.Models;
 using System.Web.Mvc;
+using ContaOnline.Domain.Models;
+using ContaOnline.Repository;
 
 namespace ContaOnline.UI.Web.Controllers
 {
-
     public class AppController : Controller
     {
         public ActionResult Registro()
         {
             var registro = new RegistroViewModel();
             return View(registro);
+        }
+
+        [HttpPost]
+        public ActionResult Registro(RegistroViewModel model)
+        {
+            if (string.IsNullOrEmpty(model.Email))
+            {
+                ModelState.AddModelError("", "O email deve ser informado");
+            }
+
+            if (string.IsNullOrEmpty(model.Senha))
+            {
+                ModelState.AddModelError("", "A senha deve ser informada");
+            }
+            else
+            {
+                if (model.Senha != model.ConfirmarSenha)
+                {
+                    ModelState.AddModelError("", "As senhas não conferem.");
+                }
+            }
+
+            if (ModelState.IsValid)
+            {
+                var usuario = new Usuario()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Email = model.Email,
+                    Senha = model.Senha,
+                    Nome = model.Nome
+                };
+                
+                var usuarioRepo = AppHelper.ObterUsuarioRepository();
+                usuarioRepo.Incluir(usuario);
+                AppHelper.RegistrarUsuarioSessao(usuario);
+                
+                return RedirectToAction("Inicio");
+            }
+            else
+            {
+                return View(model);
+            }
         }
 
         public ActionResult Login()
