@@ -20,5 +20,25 @@ namespace ContaOnline.UI.Web
         {
             return (Usuario)HttpContext.Current.Session["usuario"];
         }
+
+        public static ContaCorrenteRepository ObterContaCorrenteRepository()
+        {
+            return new ContaCorrenteRepository();
+        }
+
+        public static ContaCategoriaRepository ObterContaCategoriaRepository()
+        {
+            return new ContaCategoriaRepository();
+        }
+
+        public static ContatoRepository ObterContatoRepository()
+        {
+            return new ContatoRepository();
+        }
+
+        public static ContaRepository ObterContaRepository()
+        {
+            return new ContaRepository();
+        }
     }
 }
