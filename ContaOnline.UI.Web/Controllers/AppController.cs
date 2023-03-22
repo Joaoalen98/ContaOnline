@@ -87,6 +87,11 @@ namespace ContaOnline.UI.Web.Controllers
         /// <returns></returns>
         public ActionResult Inicio()
         {
+            var usuario = AppHelper.ObterUsuarioLogado();
+            if (usuario == null)
+            {
+                return RedirectToAction("Login");
+            }
             return View();
         }
 
