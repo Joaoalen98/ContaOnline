@@ -29,7 +29,7 @@ namespace ContaOnline.Repository
 
         public IEnumerable<ContaCategoria> ObterTodos(string usuarioId)
         {
-            return Db.QueryColecao<ContaCategoria>("ContaCategoriaObterTodos", null, CommandType.StoredProcedure);
+            return Db.QueryColecao<ContaCategoria>("ContaCategoriaObterTodos", new { UsuarioId = usuarioId }, CommandType.StoredProcedure);
         }
 
         public IEnumerable<string> Validar()
