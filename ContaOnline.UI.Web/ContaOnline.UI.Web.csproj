@@ -119,6 +119,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Code\AppHelper.cs" />
     <Compile Include="Controllers\AppController.cs" />
+    <Compile Include="Controllers\ContaCategoriaController.cs" />
     <Compile Include="Controllers\ContaCorrenteController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -164,6 +165,10 @@
     <Content Include="Views\ContaCorrente\Inicio.cshtml" />
     <Content Include="Views\ContaCorrente\Incluir.cshtml" />
     <Content Include="Views\ContaCorrente\Excluir.cshtml" />
+    <Content Include="Views\ContaCategoria\Inicio.cshtml" />
+    <Content Include="Views\ContaCategoria\Incluir.cshtml" />
+    <Content Include="Views\ContaCategoria\Alterar.cshtml" />
+    <Content Include="Views\ContaCategoria\Excluir.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ContaOnline.Domain\ContaOnline.Domain.csproj">
