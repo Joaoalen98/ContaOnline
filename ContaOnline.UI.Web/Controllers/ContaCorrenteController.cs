@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Web.Mvc;
+using ContaOnline.Domain.Interfaces;
 using ContaOnline.Domain.Models;
-using ContaOnline.Repository;
 
 namespace ContaOnline.UI.Web.Controllers
 {
     public class ContaCorrenteController : Controller
     {
-        private readonly ContaCorrenteRepository _contaCorrenteRepository;
+        private readonly IContaCorrenteRepository _contaCorrenteRepository;
         private readonly Usuario _usuario;
 
         public ContaCorrenteController()
