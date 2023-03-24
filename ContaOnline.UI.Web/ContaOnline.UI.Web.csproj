@@ -121,9 +121,11 @@
     <Compile Include="Controllers\AppController.cs" />
     <Compile Include="Controllers\ContaCategoriaController.cs" />
     <Compile Include="Controllers\ContaCorrenteController.cs" />
+    <Compile Include="Controllers\ContatoController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ContatoViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\RegistroViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -169,6 +171,7 @@
     <Content Include="Views\ContaCategoria\Incluir.cshtml" />
     <Content Include="Views\ContaCategoria\Alterar.cshtml" />
     <Content Include="Views\ContaCategoria\Excluir.cshtml" />
+    <Content Include="Views\Contato\Incluir.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ContaOnline.Domain\ContaOnline.Domain.csproj">
