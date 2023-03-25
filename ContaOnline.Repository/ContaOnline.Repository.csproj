@@ -86,12 +86,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\contadb_conta.sql" />
-    <Content Include="Scripts\contadb_contacategoria.sql" />
-    <Content Include="Scripts\contadb_contacorrente.sql" />
-    <Content Include="Scripts\contadb_contato.sql" />
-    <Content Include="Scripts\contadb_routines.sql" />
-    <Content Include="Scripts\contadb_usuario.sql" />
+    <Content Include="Scripts\scripts.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

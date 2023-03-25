@@ -1,6 +1,8 @@
+CREATE DATABASE  IF NOT EXISTS `contadb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `contadb`;
 -- MySQL dump 10.13  Distrib 8.0.32, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: contadb
+-- Host: localhost    Database: contadb
 -- ------------------------------------------------------
 -- Server version	8.0.32
 
@@ -14,6 +16,147 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `conta`
+--
+
+DROP TABLE IF EXISTS `conta`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `conta` (
+  `Id` varchar(50) DEFAULT NULL,
+  `UsuarioId` varchar(50) DEFAULT NULL,
+  `ContaCorrenteId` varchar(50) DEFAULT NULL,
+  `Tipo` int DEFAULT NULL,
+  `CategoriaId` varchar(50) DEFAULT NULL,
+  `ContatoId` varchar(50) DEFAULT NULL,
+  `Descricao` varchar(100) DEFAULT NULL,
+  `DataVencimento` datetime DEFAULT NULL,
+  `Valor` decimal(18,2) DEFAULT NULL,
+  `DataPagamento` datetime DEFAULT NULL,
+  `Desconto` decimal(18,2) DEFAULT NULL,
+  `Acrescimo` decimal(18,2) DEFAULT NULL,
+  `ValorPago` decimal(18,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `conta`
+--
+
+LOCK TABLES `conta` WRITE;
+/*!40000 ALTER TABLE `conta` DISABLE KEYS */;
+/*!40000 ALTER TABLE `conta` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `contacategoria`
+--
+
+DROP TABLE IF EXISTS `contacategoria`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `contacategoria` (
+  `Id` varchar(50) NOT NULL,
+  `UsuarioId` varchar(50) DEFAULT NULL,
+  `Nome` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `contacategoria`
+--
+
+LOCK TABLES `contacategoria` WRITE;
+/*!40000 ALTER TABLE `contacategoria` DISABLE KEYS */;
+INSERT INTO `contacategoria` VALUES ('38632cef-483f-4b2c-868e-681648ba1d41','25738ae3-e9aa-4d1b-b728-ecd28c8c7ddf','Lazer');
+/*!40000 ALTER TABLE `contacategoria` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `contacorrente`
+--
+
+DROP TABLE IF EXISTS `contacorrente`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `contacorrente` (
+  `Id` varchar(50) NOT NULL,
+  `Descricao` varchar(100) DEFAULT NULL,
+  `UsuarioId` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `contacorrente`
+--
+
+LOCK TABLES `contacorrente` WRITE;
+/*!40000 ALTER TABLE `contacorrente` DISABLE KEYS */;
+INSERT INTO `contacorrente` VALUES ('1b59ceca-51b5-490a-9918-857fcd16bcaf','Conta NuBank','25738ae3-e9aa-4d1b-b728-ecd28c8c7ddf'),('IdTeste','Descriçao Teste','UsuarioIdTeste');
+/*!40000 ALTER TABLE `contacorrente` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `contato`
+--
+
+DROP TABLE IF EXISTS `contato`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `contato` (
+  `Id` varchar(50) NOT NULL,
+  `UsuarioId` varchar(50) DEFAULT NULL,
+  `Nome` varchar(100) DEFAULT NULL,
+  `Telefone` varchar(50) DEFAULT NULL,
+  `Email` varchar(100) DEFAULT NULL,
+  `Tipo` int DEFAULT NULL,
+  `CNPJ` varchar(20) DEFAULT NULL,
+  `CPF` varchar(20) DEFAULT NULL,
+  `RG` varchar(20) DEFAULT NULL,
+  `DataNascimento` datetime DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `contato`
+--
+
+LOCK TABLES `contato` WRITE;
+/*!40000 ALTER TABLE `contato` DISABLE KEYS */;
+INSERT INTO `contato` VALUES ('8c551b16-b38f-4ff3-9942-72b6521f20ee','25738ae3-e9aa-4d1b-b728-ecd28c8c7ddf','Teste','111555-9999','teste@teste.com',0,NULL,'484.8484.8465.566','55551515151','1998-12-02 00:00:00'),('a44624a8-18ed-4a2f-af90-37c3d3ef6c87',NULL,'Teste','111555-9999','teste@teste.com',0,'888777000-99',NULL,NULL,NULL);
+/*!40000 ALTER TABLE `contato` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `usuario`
+--
+
+DROP TABLE IF EXISTS `usuario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `usuario` (
+  `Id` varchar(50) NOT NULL,
+  `Nome` varchar(100) DEFAULT NULL,
+  `Email` varchar(100) DEFAULT NULL,
+  `Senha` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuario`
+--
+
+LOCK TABLES `usuario` WRITE;
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES ('25738ae3-e9aa-4d1b-b728-ecd28c8c7ddf','Teste','teste@teste.com','teste');
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Dumping events for database 'contadb'
@@ -668,6 +811,34 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ContatoEmpresaIncluir` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ContatoEmpresaIncluir`(
+	Id varchar(50),
+    UsuarioId varchar(50),
+    Nome varchar(100),
+    Telefone varchar(50),
+    Email varchar(100),
+    Tipo int,
+    CNPJ varchar(20)
+)
+BEGIN
+insert into contato (Id, UsuarioId, Nome, Telefone, Email, Tipo, CNPJ)
+values (Id, UsuarioId, Nome, Telefone, Email, Tipo, CNPJ);
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `ContatoExcluir` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -778,6 +949,36 @@ BEGIN
         c.DataNascimento
     from contato c
     where c.UsuarioId = UsuarioId;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ContatoPessoaIncluir` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ContatoPessoaIncluir`(
+	Id varchar(50),
+    UsuarioId varchar(50),
+    Nome varchar(100),
+    Telefone varchar(50),
+    Email varchar(100),
+    Tipo int,
+    CPF varchar(20),
+    RG varchar(20),
+    DataNascimento datetime
+)
+BEGIN
+insert into contato (Id, UsuarioId, Nome, Telefone, Email, Tipo, CPF, RG, DataNascimento)
+values (Id, UsuarioId, Nome, Telefone, Email, Tipo, CPF, RG, DataNascimento);
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -940,4 +1141,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-03-14 23:37:07
+-- Dump completed on 2023-03-25  3:01:51
