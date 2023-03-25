@@ -18,7 +18,14 @@ namespace ContaOnline.Repository
 
         public void Incluir(Contato entidade)
         {
-            Db.Executar("ContatoIncluir", entidade);
+            if (entidade is Empresa)
+            {
+                Db.Executar("ContatoEmpresaIncluir", entidade);
+            }
+            else
+            {
+                Db.Executar("ContatoPessoaIncluir", entidade);
+            }
         }
 
         public Contato ObterPorId(string id)
