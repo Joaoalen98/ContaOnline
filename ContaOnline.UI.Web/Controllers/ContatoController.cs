@@ -2,20 +2,19 @@
 using ContaOnline.Domain.Interfaces;
 using ContaOnline.Domain.Models;
 using ContaOnline.UI.Web.Models;
-using System;
-using System.Web.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ContaOnline.UI.Web.Controllers
 {
+    [Authorize]
     public class ContatoController : Controller
     {
         private readonly IContatoRepository _contatoRepository;
-        private readonly Usuario _usuario;
 
         public ContatoController()
         {
             _contatoRepository = AppHelper.ObterContatoRepository();
-            _usuario = AppHelper.ObterUsuarioLogado();
         }
 
         public ActionResult Incluir()
@@ -47,7 +46,7 @@ namespace ContaOnline.UI.Web.Controllers
                 contato.Nome = model.Nome;
                 contato.Telefone = model.Telefone;
                 contato.Email = model.Email;
-                contato.UsuarioId = _usuario.Id;
+                contato.UsuarioId = User.FindFirst("Id")!.Value;
                 contato.Tipo = model.Tipo;
 
                 _contatoRepository.Incluir(contato);

@@ -1,9 +1,9 @@
-﻿using System;
-using ContaOnline.Domain.Interfaces;
+﻿using ContaOnline.Domain.Interfaces;
 using ContaOnline.UI.Web.Models;
-using System.Web.Mvc;
 using ContaOnline.Domain.Models;
-using ContaOnline.Repository;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
 
 namespace ContaOnline.UI.Web.Controllers
 {
@@ -47,7 +47,8 @@ namespace ContaOnline.UI.Web.Controllers
                 
                 var usuarioRepo = AppHelper.ObterUsuarioRepository();
                 usuarioRepo.Incluir(usuario);
-                AppHelper.RegistrarUsuarioSessao(usuario);
+                
+                HttpContext.SignInAsync(AppHelper.ObterClaimsPrincipalUsuario(usuario));
                 
                 return RedirectToAction("Inicio");
             }
@@ -74,7 +75,7 @@ namespace ContaOnline.UI.Web.Controllers
             }
             else
             {
-                AppHelper.RegistrarUsuarioSessao(usuario);
+                HttpContext.SignInAsync(AppHelper.ObterClaimsPrincipalUsuario(usuario));
                 return RedirectToAction("Inicio");
             }
 
@@ -85,13 +86,9 @@ namespace ContaOnline.UI.Web.Controllers
         /// Tela inicial
         /// </summary>
         /// <returns></returns>
+        [Authorize]
         public ActionResult Inicio()
         {
-            var usuario = AppHelper.ObterUsuarioLogado();
-            if (usuario == null)
-            {
-                return RedirectToAction("Login");
-            }
             return View();
         }
 

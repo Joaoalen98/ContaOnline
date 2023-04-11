@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Web.Http;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace ContaOnline.Services.Controllers
 {
-    public class ContaServiceController : ApiController
+    public class ContaServiceController : ControllerBase
     {
         public IEnumerable<string> Get()
         {

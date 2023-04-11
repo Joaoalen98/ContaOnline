@@ -1,39 +1,34 @@
-﻿using System;
-using System.Web.Mvc;
-using ContaOnline.Domain.Interfaces;
+﻿using ContaOnline.Domain.Interfaces;
 using ContaOnline.Domain.Models;
+using ContaOnline.UI.Web.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ContaOnline.UI.Web.Controllers
 {
+    [Authorize]
     public class ContaCorrenteController : Controller
     {
         private readonly IContaCorrenteRepository _contaCorrenteRepository;
-        private readonly Usuario _usuario;
 
         public ContaCorrenteController()
         {
             _contaCorrenteRepository = AppHelper.ObterContaCorrenteRepository();
-            _usuario = AppHelper.ObterUsuarioLogado();
         }
 
         public ActionResult Inicio()
         {
-            if (_usuario == null)
-            {
-                return RedirectToAction("Login", "App");
-            }
-            var lista = _contaCorrenteRepository.ObterTodos(_usuario.Id);
+            var lista = _contaCorrenteRepository.ObterTodos(User.FindFirst("Id")!.Value);
             return View(lista);
         }
 
         public ActionResult Incluir()
         {
-            var contaCorrente = new ContaCorrente();
-            return View(contaCorrente);
+            return View();
         }
 
         [HttpPost]
-        public ActionResult Incluir(ContaCorrente model)
+        public ActionResult Incluir(ContaCorrenteViewModel model)
         {
             if (string.IsNullOrEmpty(model.Descricao))
             {
@@ -41,9 +36,13 @@ namespace ContaOnline.UI.Web.Controllers
             }
             else if (ModelState.IsValid)
             {
-                model.Id = Guid.NewGuid().ToString();
-                model.UsuarioId = _usuario.Id;
-                _contaCorrenteRepository.Incluir(model);
+                var contaCorrente = new ContaCorrente
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    UsuarioId = User.FindFirst("Id")!.Value,
+                    Descricao = model.Descricao
+                };
+                _contaCorrenteRepository.Incluir(contaCorrente);
 
                 return RedirectToAction("Inicio");
             }
@@ -75,7 +74,7 @@ namespace ContaOnline.UI.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Excluir(FormCollection form, string id)
+        public ActionResult Excluir(IFormCollection form, string id)
         {
             _contaCorrenteRepository.Excluir(id);
             return RedirectToAction("Inicio");

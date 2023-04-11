@@ -1,6 +1,7 @@
 ﻿using ContaOnline.Domain.Models;
 using ContaOnline.Repository;
-using System.Web;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
 
 namespace ContaOnline.UI.Web
 {
@@ -11,14 +12,16 @@ namespace ContaOnline.UI.Web
             return new UsuarioRepository();
         }
 
-        public static void RegistrarUsuarioSessao(Usuario usuario)
+        public static ClaimsPrincipal ObterClaimsPrincipalUsuario(Usuario usuario)
         {
-            HttpContext.Current.Session["usuario"] = usuario;
-        }
+            var identity = new ClaimsIdentity(new Claim[]
+            {
+                new(ClaimTypes.Name, usuario.Nome),
+                new(ClaimTypes.Email, usuario.Email),
+                new("Id", usuario.Id),
+            }, CookieAuthenticationDefaults.AuthenticationScheme);
 
-        public static Usuario ObterUsuarioLogado()
-        {
-            return (Usuario)HttpContext.Current.Session["usuario"];
+            return new ClaimsPrincipal(identity);
         }
 
         public static ContaCorrenteRepository ObterContaCorrenteRepository()

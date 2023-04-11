@@ -1,40 +1,36 @@
 ﻿using ContaOnline.Domain.Interfaces;
 using ContaOnline.Domain.Models;
-using System;
-using System.Web.Mvc;
+using ContaOnline.UI.Web.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace ContaOnline.UI.Web.Controllers
 {
+    [Authorize]
     public class ContaCategoriaController : Controller
     {
         private readonly IContaCategoriaRepository _contaCategoriaRepository;
-        private readonly Usuario _usuario;
 
         public ContaCategoriaController()
         {
             _contaCategoriaRepository = AppHelper.ObterContaCategoriaRepository();
-            _usuario = AppHelper.ObterUsuarioLogado();
         }
 
 
         public ActionResult Inicio()
         {
-            if (_usuario == null)
-            {
-                return RedirectToAction("Login", "App");
-            }
-            var lista = _contaCategoriaRepository.ObterTodos(_usuario.Id);
+            var lista = _contaCategoriaRepository.ObterTodos(User.FindFirst("Id")!.Value);
             return View(lista);
         }
 
         public ActionResult Incluir()
         {
-            var contaCategoria = new ContaCategoria();
-            return View(contaCategoria);
+            return View();
         }
 
         [HttpPost]
-        public ActionResult Incluir(ContaCategoria model)
+        public ActionResult Incluir(ContaCategoriaViewModel model)
         {
             if (string.IsNullOrEmpty(model.Nome))
             {
@@ -42,9 +38,13 @@ namespace ContaOnline.UI.Web.Controllers
             }
             else if (ModelState.IsValid)
             {
-                model.Id = Guid.NewGuid().ToString();
-                model.UsuarioId = _usuario.Id;
-                _contaCategoriaRepository.Incluir(model);
+                var contaCategoria = new ContaCategoria
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    UsuarioId = User.FindFirst("Id")!.Value,
+                    Nome = model.Nome
+                };
+                _contaCategoriaRepository.Incluir(contaCategoria);
 
                 return RedirectToAction("Inicio");
             }
@@ -76,7 +76,7 @@ namespace ContaOnline.UI.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Excluir(FormCollection form, string id)
+        public ActionResult Excluir(IFormCollection form, string id)
         {
             _contaCategoriaRepository.Excluir(id);
             return RedirectToAction("Inicio");
